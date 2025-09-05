@@ -136,6 +136,11 @@ def main():
                     clean_url = url.rstrip('/')
                     parsed = urlparse(clean_url)
                     filename = parsed.path.split('/')[-1]
+                    
+                    # Truncate the filename to a safe length
+                    if len(filename) > 240:
+                        filename = filename[:240]
+
                     if not filename.endswith('.html'):
                         filename += '.html'
                     f.write(f"wget -nc -O '{args.output_dir}/{filename}' '{url}'\n")
